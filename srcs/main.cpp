@@ -53,41 +53,44 @@ Character	playerCreation(){
 
 int main(){
 	std::string line;
-	// Character	*player = new Character();
+	Character	*player = new Character();
 
-	// for (; line != "exit" ;)
-	// {
-	// 	std::cout << ROSE << "Option: create, exit" << WHITE << std::endl;
-	// 	std::getline(std::cin, line);
-	// 	if (line == "exit")
-	// 		exit(0);
-	// 	if (line == "create")
-	// 	{
-	// 		*player = playerCreation();
-	// 		break;
-	// 	}
-	// }
+	for (; line != "exit" ;)
+	{
+		std::cout << ROSE << "Option: create, auto, exit" << WHITE << std::endl;
+		std::getline(std::cin, line);
+		if (line == "exit")
+			exit(0);
+		if (line == "create")
+		{
+			*player = playerCreation();
+			Character *dummy = new Character("Dummy", HUMAN, 1);
+			std::cout << "Your player: " << *player << ", hp: " << player->getHp() << std::endl;
+			std::cout << "Dummy player: " << *dummy << ", hp: " << dummy->getHp() << std::endl;
+			std::cout << ROSE << "Starting fight with " << dummy->getName() << WHITE << std::endl;
+			fightPhase(*player, *dummy);
+			player->levelUp();
+			std::cout << *player << std::endl;
+			delete player;
+			delete dummy;
+			break;
+		}
+		if (line == "auto")
+		{
+			Character *p1 = importEntity("test.entity");
+			if (p1)
+				std::cout << *p1 << std::endl;
 
-	// Character *dummy = new Character("Dummy", HUMAN, 1);
-	// std::cout << "Your player: " << *player << ", hp: " << player->getHp() << std::endl;
-	// std::cout << "Dummy player: " << *dummy << ", hp: " << dummy->getHp() << std::endl;
-	// std::cout << ROSE << "Starting fight with " << dummy->getName() << WHITE << std::endl;
-	// fightPhase(*player, *dummy);
-	// player->levelUp();
-	// std::cout << *player << std::endl;
-	// delete player;
-	// delete dummy;
-	Character *p1 = importEntity("test.entity");
-	if (p1)
-		std::cout << *p1 << std::endl;
-
-	Character *p2 = importEntity("test2.entity");
-	if (p2)
-		std::cout << *p2 << std::endl;
-	autoFight(*p1, *p2);
-	if (p1)
-		delete p1;
-	if (p2)
-		delete p2;
+			Character *p2 = importEntity("test2.entity");
+			if (p2)
+				std::cout << *p2 << std::endl;
+			autoFight(*p1, *p2);
+			if (p1)
+				delete p1;
+			if (p2)
+				delete p2;
+			break;
+		}
+	}
 	return (0);
 }
